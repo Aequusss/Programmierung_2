@@ -1,0 +1,54 @@
+package thd.gameobjects.unmovable;
+
+import thd.game.utilities.GameView;
+import thd.game.utilities.SilkwormBlockImages;
+import thd.gameobjects.base.GameObject;
+import java.awt.Color;
+
+/**
+ * A pickup that restores health.
+ */
+public class HealthPickup extends GameObject {
+
+    private double bobOffset;
+
+    /**
+     * Constructs a health pickup.
+     *
+     * @param gameView the game view
+     * @param startX   initial x-coordinate
+     * @param startY   initial y-coordinate
+     */
+    public HealthPickup(GameView gameView, double startX, double startY) {
+        super(gameView);
+        position.updateCoordinates(startX, startY);
+        speedInPixel = 0;
+        size = 0.8;
+        width = 30;
+        height = 30;
+        rotation = 0;
+        bobOffset = 0;
+    }
+
+    @Override
+    public void updateStatus() {
+        bobOffset += 0.05;
+    }
+
+    @Override
+    public void updatePosition() {
+        // Base position stays the same, bobbing handled in rendering
+    }
+
+    @Override
+    public void addToCanvas() {
+        double bobY = Math.sin(bobOffset) * 3;
+        gameView.addBlockImageToCanvas(SilkwormBlockImages.HEALTH_PICKUP, position.getX(), position.getY() + bobY, size, rotation);
+
+    }
+
+    @Override
+    public String toString() {
+        return "HealthPickup: " + position;
+    }
+}

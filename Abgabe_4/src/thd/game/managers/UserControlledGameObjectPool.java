@@ -1,0 +1,72 @@
+package thd.game.managers;
+
+
+import thd.game.utilities.GameView;
+import thd.gameobjects.movable.*;
+
+
+import thd.gameobjects.unmovable.*;
+
+
+import java.awt.event.KeyEvent;
+
+abstract class UserControlledGameObjectPool {
+
+
+    protected final GameView gameView;
+    protected MainCharacter mainCharacter;
+    protected EnemyTank enemyTank;
+    protected EnemyHelicopter enemyHelicopter;
+    protected PlayerBullet playerBullet;
+    protected EnemyBullet enemyBullet;
+    protected Explosion explosion;
+    protected Bridge bridge;
+    protected HealthPickup healthPickup;
+    protected AmmoPickup ammoPickup;
+    protected HealthUnit healthUnit;
+
+    /**
+     * Constructs a new UserControlledGameObjectPool.
+     *
+     * @param gameView the game view for rendering and keyboard input
+     */
+    UserControlledGameObjectPool(GameView gameView) {
+        this.gameView = gameView;
+    }
+
+    /**
+     * Processes keyboard input for the current frame.
+     * Queries all currently pressed keys and delegates to {@link #processKeyCode(int)}.
+     */
+    protected void processFrame() {
+        // Reset shooting state each frame so it only shows while space is held
+        if (mainCharacter != null) {
+            mainCharacter.resetShot();
+        }
+
+        Integer[] pressedKeys = gameView.keyCodesOfCurrentlyPressedKeys();
+        for (int keyCode : pressedKeys) {
+            processKeyCode(keyCode);
+        }
+    }
+
+    /**
+     * Helper method to evaluate a single key press and trigger corresponding actions.
+     * Supports WASD, arrow keys, and spacebar.
+     *
+     * @param keyCode the key code of the pressed key
+     */
+    private void processKeyCode(int keyCode) {
+        if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
+            mainCharacter.left();
+        } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
+            mainCharacter.right();
+        } else if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
+            mainCharacter.up();
+        } else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
+            mainCharacter.down();
+        } else if (keyCode == KeyEvent.VK_SPACE) {
+            mainCharacter.shoot();
+        }
+    }
+}
