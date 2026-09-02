@@ -14,7 +14,7 @@ Deggendorf Institute of Technology (DIT).
 
 ## How to Play
 The complete, runnable project is located in the
-[`Abgabe_13`](HIER_DEINEN_ORDNER-LINK_EINFÜGEN) folder.
+[`Abgabe_13`](https://github.com/Aequusss/Programmierung_2/tree/main/Abgabe_13) folder.
 
 1. Download the repository (Code → Download ZIP) and open the `Abgabe_13`
    folder as a project in an IDE, preferably IntelliJ.
